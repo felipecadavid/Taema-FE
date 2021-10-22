@@ -1,0 +1,6 @@
+main{
+    min-height: calc(100vh - 150px - 200px - 40px);
+    background: url('../../assets/background/pattern.jpeg');
+    background-position: center;
+    background-size: cover;
+}
