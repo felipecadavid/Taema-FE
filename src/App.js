@@ -7,7 +7,8 @@ import Layout from './components/Layout/Layout';
 function App() {
   return (
     <BrowserRouter>
-      <Layout />
+      <Layout>
+      </Layout>
     </BrowserRouter>
   );
 }
