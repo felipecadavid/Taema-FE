@@ -21,7 +21,7 @@ function Navbar() {
                         <Link to="/">Escríbenos por WhatsApp</Link>
                     </li>
                     <li>
-                        <Link to="/">Catálogo</Link>
+                        <Link to="/categorias">Catálogo</Link>
                     </li>
                     <li>
                         <Link to="/">Agendas</Link>
