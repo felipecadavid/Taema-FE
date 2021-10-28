@@ -3,20 +3,7 @@ import axios from '../../utils/axios';
 
 import CategoryComponent from "../CategoryComponent/CategoryComponent";
 
-import image from '../../assets/logo/Logo.png'
-
 import "./CategoryList.css";
-
-const offlineData = [
-  { name: "Category 1", image: image },
-  { name: "Category 2", image: image },
-  { name: "Category 3", image: image },
-  { name: "Category 4", image: image },
-  { name: "Category 5", image: image },
-  { name: "Category 6", image: image },
-  { name: "Category 7", image: image },
-  { name: "Category 8", image: image },
-];
 
 function CategoryList() {
   const [state, setState] = useState({
@@ -41,6 +28,7 @@ function CategoryList() {
           <div className="categories-container">
               {state.data.map((category) => (
                 <CategoryComponent
+                  key={category._id}
                   name={category.name}
                   image={category.image}
                 />

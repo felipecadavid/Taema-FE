@@ -1,0 +1,40 @@
+.comofunciona__container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.comofunciona__title {
+  text-align: center;
+}
+
+.comofunciona__container__item {
+  /* width: 15%; Desktop */
+  width: 80%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 30px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.comofunciona__container__item__title {
+  margin: 20px 0 0 0;
+  color: var(--color-f);
+}
+
+.comofunciona__container__item__text {
+  margin-top: 2px;
+  color: var(--color-d);
+}
+
+.comofunciona__container__item > svg {
+  color: var(--color-b);
+  font-size: 5rem;
+  align-self: center;
+}
