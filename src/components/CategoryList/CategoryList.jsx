@@ -29,6 +29,7 @@ function CategoryList() {
               {state.data.map((category) => (
                 <CategoryComponent
                   key={category._id}
+                  id={category._id}
                   name={category.name}
                   image={category.image}
                 />

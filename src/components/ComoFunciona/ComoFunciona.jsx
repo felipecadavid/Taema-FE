@@ -5,7 +5,7 @@ import './ComoFunciona.css';
 
 function ComoFunciona() {
   return (
-    <section className="comofunciona">
+    <section id="comofunciona" className="comofunciona">
       <h2 className="comofunciona__title">¿Cómo funciona?</h2>
       <div className="comofunciona__container">
         <div className="comofunciona__container__item">
