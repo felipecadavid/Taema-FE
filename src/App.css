@@ -9,6 +9,10 @@
   --color-g: #c2c4e2;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   min-height: calc(100vh - 150px - 200px - 40px);
   background: url("./assets/background/pattern.jpeg");

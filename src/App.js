@@ -6,6 +6,7 @@ import './App.css';
 
 import Layout from './components/Layout/Layout';
 import CategoriesPage from './pages/CategoriesPage/CategoriesPage';
+import ProductsPage from './pages/ProductsPage/ProductsPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Layout>
         <Route exact path="/" component={Homepage} />
         <Route exact path="/categorias" component={CategoriesPage} />
+        <Route exact path="/categorias/:category" component={ProductsPage} />
       </Layout>
     </BrowserRouter>
   );
