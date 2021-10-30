@@ -1,22 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./ProductComponent.css";
 
 function ProductComponent({ product }) {
-  function getDiscountedPrice() {
-    const { price, discount } = product;
-    return price - (price * discount) / 100;
-  }
-
-  const { name, image, price, discount } = product;
+  const { _id: id, name, image, price, discount, totalPrice } = product;
   return (
     <div>
       {discount && (
-        <div className="productcomponent-discount-container">
+        <Link to={{ pathname: `/producto/${id}`, product}} className="productcomponent-discount-container">
           <span className="productcomponent__discount">{discount}% OFF</span>
-        </div>
+        </Link>
       )}
-      <div className="productcomponent-container">
+      <Link to={{ pathname: `/producto/${id}`, product}} className="productcomponent-container">
         <div className="productcomponent__image-container">
           <img className="productcomponent__image" src={image} alt={name} />
         </div>
@@ -26,10 +22,10 @@ function ProductComponent({ product }) {
             ${price}
           </h4>
           {discount && (
-            <h4 className="productcomponent__price">${getDiscountedPrice()}</h4>
+            <h4 className="productcomponent__price">${totalPrice}</h4>
           )}
         </div>
-      </div>
+      </Link>
     </div>
   );
 }
