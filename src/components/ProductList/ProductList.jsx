@@ -9,9 +9,7 @@ function ProductList({ products }) {
     <div className="productlist-margin">
       <div className="productlist-container">
         {products.map((product) => (
-          <>
-            <ProductComponent product={product} />
-          </>
+          <ProductComponent key={product._id} product={product} />
         ))}
       </div>
     </div>
