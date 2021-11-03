@@ -87,6 +87,15 @@ h4 {
   font-style: italic;
 }
 
+.productcomponent--outofstock{
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.productcomponent--outofstock > .productcomponent-container{
+  background-color: var(--color-d );
+}
+
 @media (max-width: 450px) {
   .productcomponent-container {
     width: 150px;
