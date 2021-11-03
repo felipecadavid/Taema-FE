@@ -5,15 +5,18 @@ import ReactImageMagnify from "react-image-magnify";
 import history from "../../utils/history";
 
 import "./ProductPage.css";
+import { useDispatch } from "react-redux";
+import { ADD_TO_CART } from "../../actions/constants";
+import Swal from "sweetalert2";
 
 function ProductPage(props) {
+  const dispatch = useDispatch();
   const [state, setState] = useState({
     product: props.location.product,
     loading: props.location.product ? false : true,
     quantity: 1,
   });
 
-  console.log("AQUI")
   useEffect(() => {
     if (!props.location.product) {
       async function getProduct() {
@@ -53,6 +56,14 @@ function ProductPage(props) {
       setState({ ...state, quantity: currentQuantity + 1 });
     if (button === "-" && state.quantity > 1)
       setState({ ...state, quantity: currentQuantity - 1 });
+
+    if (button === "Agregar al carrito") {
+      dispatch({ type: ADD_TO_CART, payload: { ...state.product._id } });
+      Swal.fire({
+        icon: "success",
+        title: "Producto agregado al carrito",
+      });
+    }
   };
 
   const { product, loading } = state;
@@ -125,10 +136,10 @@ function ProductPage(props) {
               </button>
             </div>
             <div className="productpage__buttons-container">
-              <button type="button" className="productpage__buy-button">
+              <button onClick={handleClick} type="button" className="productpage__buy-button">
                 Comprar
               </button>
-              <button type="button" className="productpage__add-cart-button">
+              <button onClick={handleClick} type="button" className="productpage__add-cart-button">
                 Agregar al carrito
               </button>
             </div>
