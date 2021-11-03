@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios";
 import ReactImageMagnify from "react-image-magnify";
 
+import history from "../../utils/history";
+
 import "./ProductPage.css";
 
 function ProductPage(props) {
@@ -11,11 +13,15 @@ function ProductPage(props) {
     quantity: 1,
   });
 
+  console.log("AQUI")
   useEffect(() => {
     if (!props.location.product) {
       async function getProduct() {
         const id = props.match.params.product;
         const product = await axios.get(`/api/products/${id}`);
+        if (!product.stock) {
+          history.push("/");
+        }
         setState((prevState) => ({
           ...prevState,
           product: product.data,
@@ -23,6 +29,10 @@ function ProductPage(props) {
         }));
       }
       getProduct();
+    } else {
+      if (!props.location.product.stock) {
+        history.push("/");
+      }
     }
   }, [props.location.product, props.match.params.product]);
 
