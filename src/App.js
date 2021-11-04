@@ -10,6 +10,7 @@ import Layout from './components/Layout/Layout';
 import CategoriesPage from './pages/CategoriesPage/CategoriesPage';
 import ProductsPage from './pages/ProductsPage/ProductsPage';
 import ProductPage from './pages/ProductPage/ProductPage';
+import CartPage from './pages/CartPage/CartPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route exact path="/categorias" component={CategoriesPage} />
         <Route exact path="/categorias/:category" component={ProductsPage} />
         <Route exact path="/producto/:product" component={ProductPage} />
+        <Route exact path="/carrito" component={CartPage} />
       </Layout>
     </Router>
   );
