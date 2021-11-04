@@ -15,8 +15,10 @@ import {
   faInstagram,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
+import { useSelector } from "react-redux";
 
 function Header() {
+  const cart = useSelector((state) => state.cart);
   const [menu, setMenu] = useState(false);
 
   const toggleMenu = () => {
@@ -56,11 +58,11 @@ function Header() {
         </div>
         <div className="header__mobile-buttons-container">
           <Link
-            to="/"
+            to="/carrito"
             className="mobile-butons-container__shopping-cart-container"
           >
             <FontAwesomeIcon icon={faShoppingCart} />
-            <span>0</span>
+            <span>{cart.length || 0}</span>
           </Link>
           <FontAwesomeIcon
             className="mobile-buttons__menu-button"
