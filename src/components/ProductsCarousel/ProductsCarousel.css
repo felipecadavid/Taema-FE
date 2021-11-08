@@ -1,0 +1,9 @@
+.legend > span {
+    font-size: 1rem;
+    margin: 5px 0;
+    display: block;
+}
+
+p.legend#productsCarouselCustomlegend{
+    opacity: 100%;
+}
