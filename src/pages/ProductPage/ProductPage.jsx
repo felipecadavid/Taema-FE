@@ -56,10 +56,9 @@ function ProductPage(props) {
     const currentQuantity = parseInt(state.quantity);
     if (button === "+" && state.quantity < state.product.stock)
       setState({ ...state, quantity: currentQuantity + 1 });
-    if (button === "-" && state.quantity > 1)
+    else if (button === "-" && state.quantity > 1)
       setState({ ...state, quantity: currentQuantity - 1 });
-
-    if (button === "Agregar al carrito") {
+    else if (button === "Agregar al carrito") {
       // dispatch({ type: ADD_TO_CART, payload: { ...state.product._id } });
       const order = {
         product: state.product._id,
@@ -82,6 +81,13 @@ function ProductPage(props) {
         icon: "success",
         title: "Producto agregado al carrito",
       });
+    }
+    else if(button === "Comprar"){
+      const order = {
+        product: state.product._id,
+        quantity: state.quantity,
+      };
+      history.push(`/comprar?product=${order.product}&quantity=${order.quantity}`);
     }
   };
 

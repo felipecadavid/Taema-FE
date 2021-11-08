@@ -6,6 +6,7 @@ import './CartPage.css'
 import axios from "../../utils/axios";
 
 import CartProduct from "../../components/CartProduct/CartProduct";
+import { Link } from "react-router-dom";
 
 function CartPage() {
   const cart = useSelector((state) => state.cart);
@@ -41,7 +42,7 @@ function CartPage() {
           {products.length ? <>{products.map((product, index) => (
             <CartProduct key={index} productInCartIndex={index} product={product} />
           ))}
-          <button className="cart-page__button" type="button">Comprar</button></> :
+          <Link to="/comprar?cart=true" className="cart-page__button" type="button">Comprar</Link></> :
             <div className="cart-page__empty">
               <h2>No hay productos en el carrito</h2>
               <p>Puedes agregar productos al carrito desde la sección de productos</p>
