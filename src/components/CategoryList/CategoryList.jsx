@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from '../../utils/axios';
 
 import CategoryComponent from "../CategoryComponent/CategoryComponent";
+import Loader from "../Loader/Loader";
 
 import "./CategoryList.css";
 
@@ -22,7 +23,7 @@ function CategoryList() {
   return (
     <>
       {state.loading ? (
-        "Loading..."
+        <Loader />
       ) : (
         <div className="categories-margin">
           <div className="categories-container">
