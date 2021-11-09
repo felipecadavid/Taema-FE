@@ -9,6 +9,7 @@ import "./BuyPage.css";
 import BuySingleProduct from "../../components/BuySingleProduct/BuySingleProduct";
 import BuyCart from "../../components/BuyCart/BuyCart";
 import { useSelector } from "react-redux";
+import Loader from "../../components/Loader/Loader";
 
 function useQuery() {
   const { search } = useLocation();
@@ -62,7 +63,7 @@ function BuyPage() {
   return (
     <>
       {loading ? (
-        "Loading..."
+        <Loader />
       ) : !cart ? (
         <>
           <BuySingleProduct product={state.product} quantity={quantity} />

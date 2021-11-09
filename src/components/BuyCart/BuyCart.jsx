@@ -11,13 +11,18 @@ import deleteFullCart from "../../actions/deleteFullCart";
 import ProductsCarousel from "../ProductsCarousel/ProductsCarousel";
 
 import "./BuyCart.css";
+import PayComponent from "../PayComponent/PayComponent";
 
 function BuyCart(props) {
   const dispatch = useDispatch();
-
   const { products } = props;
-  console.log("PRODUCTS: ", products);
-
+  function getTotalToPay() {
+    const total = products.reduce((acc, product) => {
+      return acc + product.totalPrice * product.quantity;
+    }, 0);
+    return total;
+  }
+  const totalToPay = getTotalToPay();
   const [state, setState] = useState({
     orderDate: {
       value: null,
@@ -27,6 +32,7 @@ function BuyCart(props) {
     clientPhone: null,
     shippingCity: null,
     shippingAddress: null,
+    isPaying: false,
   });
   const currentDate = new Date();
   const handleDateChange = (value, e) => {
@@ -49,6 +55,56 @@ function BuyCart(props) {
       });
     }
   };
+
+
+  const createOrder = () => {
+    const {
+      orderDate,
+      clientEmail,
+      clientPhone,
+      shippingCity,
+      shippingAddress,
+    } = state;
+
+    const productsToSend = products.map((product) => {
+      return {
+        productId: product._id,
+        quantity: product.quantity,
+      };
+    });
+    const order = {
+      orderItems: productsToSend,
+      orderDate: orderDate.value,
+      clientEmail: clientEmail,
+      clientPhone: clientPhone,
+      shippingCity: shippingCity,
+      shippingAddress: shippingAddress,
+    };
+    setState({ ...state, loading: true });
+    console.log(order);
+    axios
+      .post("/api/orders", order)
+      .then((res) => {
+        console.log(res);
+        Swal.fire({
+          title: "Exito",
+          text: "Tu pedido ha sido realizado con éxito",
+          icon: "success",
+          confirmButtonText: "Ok",
+        }).then(() => {
+          console.log("DISPATCH");
+          dispatch(deleteFullCart());
+          history.push("/");
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        Swal.fire({
+          title: "Error",
+          text: "Ha ocurrido un error, por favor intenta de nuevo",
+        });
+      });
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,54 +138,7 @@ function BuyCart(props) {
       return;
     }
 
-    const {
-      orderDate,
-      clientEmail,
-      clientPhone,
-      shippingCity,
-      shippingAddress,
-    } = state;
-
-    const productsToSend = products.map((product) => {
-      return {
-        productId: product._id,
-        quantity: product.quantity,
-      };
-    });
-
-    const order = {
-      orderItems: productsToSend,
-      orderDate: orderDate.value,
-      clientEmail: clientEmail,
-      clientPhone: clientPhone,
-      shippingCity: shippingCity,
-      shippingAddress: shippingAddress,
-    };
-    // Continue to checkout with epayCo
-    setState({ ...state, loading: true });
-    console.log(order);
-    axios
-      .post("/api/orders", order)
-      .then((res) => {
-        console.log(res);
-        Swal.fire({
-          title: "Exito",
-          text: "Tu pedido ha sido realizado con éxito",
-          icon: "success",
-          confirmButtonText: "Ok",
-        }).then(() => {
-          console.log("DISPATCH")
-          dispatch(deleteFullCart());
-          history.push("/");
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        Swal.fire({
-          title: "Error",
-          text: "Ha ocurrido un error, por favor intenta de nuevo",
-        });
-      });
+    setState({ ...state, isPaying: true });
   };
 
   const handleChange = (e) => {
@@ -145,94 +154,117 @@ function BuyCart(props) {
       <div className="cart__carousel-container">
         <ProductsCarousel products={products} details />
       </div>
-
-      <form className="cart__form-container" onSubmit={handleSubmit}>
-        <h1>
-          Por favor proporcionanos los siguientes datos para poder realizar la
-          compra
-        </h1>
-        <label className="cart__purchase-label">
-          Selecciona una fecha de envío*
-        </label>
-        <Calendar onChange={handleDateChange} />
-        {state.orderDate.error && (
-          <span className="cart__purchase-error-span">
-            La fecha de entrega debe ser a partir de mañana
-          </span>
-        )}
-        <div className="cart__purchase__input-container">
-          <label className="cart__purchase-label" htmlFor="email">
-            Correo electrónico*
+      {state.isPaying && (
+        <PayComponent totalToPay={totalToPay} createOrder={createOrder} />
+      )}
+      {!state.isPaying && (
+        <form className="cart__form-container" onSubmit={handleSubmit}>
+          <h1>
+            Por favor proporcionanos los siguientes datos para poder realizar la
+            compra
+          </h1>
+          <label className="cart__purchase-label">
+            Selecciona una fecha de envío*
           </label>
-          <input
-            onChange={handleChange}
-            className="cart__purchase-input"
-            id="email"
-            type="email"
-            placeholder="Ej. usuario@gmail.com"
-            name="clientEmail"
-          />
-        </div>
-        <div className="cart__purchase__input-container">
-          <label className="cart__purchase-label" htmlFor="phoneNumber">
-            Número de teléfono celular*
-          </label>
-          <input
-            className="cart__purchase-input"
-            id="phoneNumber"
-            type="tel"
-            placeholder="Ej. 302123456"
-            name="clientPhone"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="cart__purchase__input-container">
-          <label className="cart__purchase-label" htmlFor="city">
-            Ciudad destino*
-          </label>
-          <input
-            className="cart__purchase-input"
-            id="city"
-            type="text"
-            placeholder="Ej. Medellín"
-            name="shippingCity"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="cart__purchase__input-container">
-          <label className="cart__purchase-label" htmlFor="address">
-            Dirección*
-          </label>
-          <input
-            className="cart__purchase-input"
-            id="address"
-            type="text"
-            placeholder="Ej. Cl 40 #123b - 45"
-            name="shippingAddress"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="cart__purchase__method-container">
-          <label className="cart__purchase-label" htmlFor="method">
-            Método de pago*
-          </label>
-          <div className="cart__purchase-input--radio-container">
-            <input onChange={handleChange} className="cart__purchase-input--radio" type="radio" name="paymentMethod" id="cash" />
-            <label htmlFor="cash">Efectivo contra-entrega</label>
+          <Calendar onChange={handleDateChange} />
+          {state.orderDate.error && (
+            <span className="cart__purchase-error-span">
+              La fecha de entrega debe ser a partir de mañana
+            </span>
+          )}
+          <div className="cart__purchase__input-container">
+            <label className="cart__purchase-label" htmlFor="email">
+              Correo electrónico*
+            </label>
+            <input
+              onChange={handleChange}
+              className="cart__purchase-input"
+              id="email"
+              type="email"
+              placeholder="Ej. usuario@gmail.com"
+              name="clientEmail"
+            />
           </div>
-          <div className="cart__purchase-input--radio-container">
-            <input onChange={handleChange} className="cart__purchase-input--radio" type="radio" name="paymentMethod" id="card" />
-            <label htmlFor="card">Pago en línea con Tarjeta</label>
+          <div className="cart__purchase__input-container">
+            <label className="cart__purchase-label" htmlFor="phoneNumber">
+              Número de teléfono celular*
+            </label>
+            <input
+              className="cart__purchase-input"
+              id="phoneNumber"
+              type="tel"
+              placeholder="Ej. 302123456"
+              name="clientPhone"
+              onChange={handleChange}
+            />
           </div>
-          <div className="cart__purchase-input--radio-container">
-            <input onChange={handleChange} className="cart__purchase-input--radio" type="radio" name="paymentMethod" id="PSE" />
-            <label htmlFor="PSE">Pago PSE</label>
+          <div className="cart__purchase__input-container">
+            <label className="cart__purchase-label" htmlFor="city">
+              Ciudad destino*
+            </label>
+            <input
+              className="cart__purchase-input"
+              id="city"
+              type="text"
+              placeholder="Ej. Medellín"
+              name="shippingCity"
+              onChange={handleChange}
+            />
           </div>
-        </div>
-        <button className="cart__purchase__submit" type="submit">
-          Continuar
-        </button>
-      </form>
+          <div className="cart__purchase__input-container">
+            <label className="cart__purchase-label" htmlFor="address">
+              Dirección*
+            </label>
+            <input
+              className="cart__purchase-input"
+              id="address"
+              type="text"
+              placeholder="Ej. Cl 40 #123b - 45"
+              name="shippingAddress"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="cart__purchase__method-container">
+            <label className="cart__purchase-label" htmlFor="method">
+              Método de pago*
+            </label>
+            <div className="cart__purchase-input--radio-container">
+              <input
+                onChange={handleChange}
+                className="cart__purchase-input--radio"
+                type="radio"
+                name="paymentMethod"
+                id="cash"
+              />
+              <label htmlFor="cash">Efectivo contra-entrega</label>
+            </div>
+            <div className="cart__purchase-input--radio-container">
+              <input
+                onChange={handleChange}
+                className="cart__purchase-input--radio"
+                type="radio"
+                name="paymentMethod"
+                id="card"
+              />
+              <label htmlFor="card">Pago en línea con Tarjeta</label>
+            </div>
+            <div className="cart__purchase-input--radio-container">
+              <input
+                onChange={handleChange}
+                className="cart__purchase-input--radio"
+                type="radio"
+                name="paymentMethod"
+                id="PSE"
+              />
+              <label htmlFor="PSE">Pago PSE</label>
+            </div>
+          </div>
+          <button className="cart__purchase__submit" type="submit">
+            Continuar
+          </button>
+          <h2>Total a pagar: ${totalToPay}</h2>
+        </form>
+      )}
     </div>
   );
 }

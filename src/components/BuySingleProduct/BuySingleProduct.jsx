@@ -4,11 +4,16 @@ import "react-calendar/dist/Calendar.css";
 import Swal from "sweetalert2";
 import axios from "../../utils/axios";
 import history from "../../utils/history";
+import PayComponent from "../PayComponent/PayComponent";
 import ProductsCarousel from "../ProductsCarousel/ProductsCarousel";
 
 import "./BuySingleProduct.css";
 
 function BuySingleProduct(props) {
+  const { product, quantity } = props;
+  const { totalPrice } = product;
+  const totalToPay = totalPrice * quantity;
+
   const [state, setState] = useState({
     orderDate: {
       value: null,
@@ -19,9 +24,9 @@ function BuySingleProduct(props) {
     shippingCity: null,
     shippingAddress: null,
     paymentMethod: null,
+    isPaying: false
   });
   const currentDate = new Date();
-  const { product, quantity } = props;
 
   const handleDateChange = (value, e) => {
     if (value <= currentDate) {
@@ -66,7 +71,14 @@ function BuySingleProduct(props) {
       });
       return;
     }
-    if (!(state.clientPhone && state.shippingCity && state.shippingAddress)) {
+    if (
+      !(
+        state.clientPhone &&
+        state.shippingCity &&
+        state.shippingAddress &&
+        state.paymentMethod
+      )
+    ) {
       Swal.fire({
         title: "Error",
         text: "Por favor completa todos los campos",
@@ -77,48 +89,26 @@ function BuySingleProduct(props) {
     }
 
     const {
-      orderDate,
-      clientEmail,
-      clientPhone,
-      shippingCity,
-      shippingAddress,
+      paymentMethod
     } = state;
-    const productId = product._id;
-    const order = {
-      orderItems: [{ productId, quantity }],
-      orderDate: orderDate.value,
-      clientEmail: clientEmail,
-      clientPhone: clientPhone,
-      shippingCity: shippingCity,
-      shippingAddress: shippingAddress,
-    };
-    // Continue to checkout with epayCo
-    setState({ ...state, loading: true });
-    console.log(order);
-    axios
-      .post("/api/orders", order)
-      .then((res) => {
-        console.log(res);
-        Swal.fire({
-          title: "Exito",
-          text: "Tu pedido ha sido realizado con éxito",
-          icon: "success",
-          confirmButtonText: "Ok",
-        }).then(() => {
-          history.push("/");
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        Swal.fire({
-          title: "Error",
-          text: "Ha ocurrido un error, por favor intenta de nuevo",
-        });
+
+    if (paymentMethod === "cash") {
+      createOrder();
+    } else if (paymentMethod === "card") {
+      setState({ ...state, isPaying: true });
+    } else if (paymentMethod === "PSE") {
+      Swal.fire({
+        title: "Error",
+        text: "Método de pago no disponible",
+        icon: "error",
+        confirmButtonText: "Ok",
       });
+    }
+
   };
 
   const handleChange = (e) => {
-    if(e.target.name !== "method"){
+    if (e.target.name !== "paymentMethod") {
       setState({
         ...state,
         [e.target.name]: e.target.value,
@@ -129,12 +119,59 @@ function BuySingleProduct(props) {
         [e.target.name]: e.target.id,
       });
     }
-    
+
     console.log(state);
   };
 
+  const createOrder = () => {
+    const {
+      orderDate,
+      clientEmail,
+      clientPhone,
+      shippingCity,
+      shippingAddress,
+      paymentMethod,
+    } = state;
+    const productId = product._id;
+
+    const order = {
+      orderItems: [{ productId, quantity }],
+      orderDate: orderDate.value,
+      clientEmail: clientEmail,
+      clientPhone: clientPhone,
+      shippingCity: shippingCity,
+      shippingAddress: shippingAddress,
+      paymentMethod: paymentMethod,
+    };
+
+    setState({ ...state, loading: true });
+      console.log(order);
+      axios
+        .post("/api/orders", order)
+        .then((res) => {
+          console.log(res);
+          Swal.fire({
+            title: "Exito",
+            text: "Tu pedido ha sido realizado con éxito",
+            icon: "success",
+            confirmButtonText: "Ok",
+          }).then(() => {
+            history.push("/");
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          Swal.fire({
+            title: "Error",
+            text: "Ha ocurrido un error, por favor intenta de nuevo",
+          });
+        });
+  }
+
   const { name, image } = product;
   return (
+    <>
+    
     <div className="single-container">
       <h1 className="single__title">Vas a comprar...</h1>
       <div className="single__carousel-container">
@@ -143,7 +180,8 @@ function BuySingleProduct(props) {
           details
         />
       </div>
-
+      {state.isPaying && <PayComponent product={product} totalToPay={totalToPay} createOrder={createOrder} />}
+      {!state.isPaying &&
       <form className="single__form-container" onSubmit={handleSubmit}>
         <h1>
           Por favor proporcionanos los siguientes datos para poder realizar la
@@ -215,23 +253,43 @@ function BuySingleProduct(props) {
             Método de pago*
           </label>
           <div className="single__purchase-input--radio-container">
-            <input onChange={handleChange} className="single__purchase-input--radio" type="radio" name="paymentMethod" id="cash" />
+            <input
+              onChange={handleChange}
+              className="single__purchase-input--radio"
+              type="radio"
+              name="paymentMethod"
+              id="cash"
+            />
             <label htmlFor="cash">Efectivo contra-entrega</label>
           </div>
           <div className="single__purchase-input--radio-container">
-            <input onChange={handleChange} className="single__purchase-input--radio" type="radio" name="paymentMethod" id="card" />
+            <input
+              onChange={handleChange}
+              className="single__purchase-input--radio"
+              type="radio"
+              name="paymentMethod"
+              id="card"
+            />
             <label htmlFor="card">Pago en línea con Tarjeta</label>
           </div>
           <div className="single__purchase-input--radio-container">
-            <input onChange={handleChange} className="single__purchase-input--radio" type="radio" name="paymentMethod" id="PSE" />
+            <input
+              onChange={handleChange}
+              className="single__purchase-input--radio"
+              type="radio"
+              name="paymentMethod"
+              id="PSE"
+            />
             <label htmlFor="PSE">Pago PSE</label>
           </div>
         </div>
+        <h2>Total a pagar: ${totalToPay}</h2>
         <button className="single__purchase__submit" type="submit">
           Continuar
         </button>
-      </form>
+      </form>}
     </div>
+    </>
   );
 }
 
