@@ -1,9 +1,15 @@
-import { ADD_TO_CART, DELETE_FROM_CART, DELETE_FULL_CART } from "../actions/constants";
+import { ADD_TO_CART, DELETE_FROM_CART, DELETE_FULL_CART, SET_TOKEN, SET_USER_DATA } from "../actions/constants";
 
 const initialState = {
   cart: localStorage.getItem("cart")
     ? JSON.parse(localStorage.getItem("cart"))
     : [],
+    token: localStorage.getItem("token") || null,
+    userData: {
+      name: null,
+      email: null,
+      isAdmin: null,
+    }
 };
 
 // Modify the reducer in order to receive the actions
@@ -50,6 +56,27 @@ const reducer = function (state = initialState, action) {
       ...state,
       cart: [],
     };
+  } else if (action.type === SET_TOKEN) {
+    localStorage.setItem("token", action.payload.token);
+    return {
+      ...state,
+      token: action.payload.token,
+      userData: {
+        name: action.payload.name,
+        email: action.payload.email,
+        isAdmin: action.payload.isAdmin,
+      },
+    }
+  } else if (action.type === SET_USER_DATA) {
+    const userData = action.payload._doc;
+    return {
+      ...state,
+      userData: {
+        name: userData.name,
+        email: userData.email,
+        isAdmin: userData.isAdmin,
+      },
+    }
   }
   return state;
 };
