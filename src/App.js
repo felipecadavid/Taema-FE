@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Router, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import setUserData from "./actions/setUserData";
+import AdminRoute from "./utils/AdminRoute";
+import LoginRoute from "./utils/LoginRoute";
 
 import history from "./utils/history";
 import ScrollToTop from "./utils/ScrollToTop";
@@ -16,6 +18,9 @@ import ProductPage from "./pages/ProductPage/ProductPage";
 import CartPage from "./pages/CartPage/CartPage";
 import BuyPage from "./pages/BuyPage/BuyPage";
 import Login from "./pages/LoginPage/LoginPage";
+
+import DasboardPage from "./pages/Admin/DashboardPage/DasboardPage";
+import OrderPage from "./pages/Admin/OrderPage/OrderPage";
 
 import Loader from "./components/Loader/Loader";
 import axios from "./utils/axios";
@@ -49,7 +54,9 @@ function App() {
           <Route exact path="/producto/:product" component={ProductPage} />
           <Route exact path="/carrito" component={CartPage} />
           <Route exact path="/comprar" component={BuyPage} />
-          <Route exact path="/login" component={Login} />
+          <LoginRoute exact path="/login" component={Login} />
+          <AdminRoute exact path="/admin" component={DasboardPage}/>
+          <AdminRoute exact path="/admin/order/:id" component={OrderPage}/>
         </Layout>
       ) : (
         <Loader />
