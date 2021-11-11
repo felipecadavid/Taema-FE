@@ -1,0 +1,30 @@
+.changestatus__buttons-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.changestatus__buttons-container > button{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--color-a);
+    color: var(--color-c);
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.chanestatus-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.changestatus__textarea{
+    resize: none;
+    font-size: 1.2rem;
+}
