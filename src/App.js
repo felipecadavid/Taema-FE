@@ -21,6 +21,8 @@ import Login from "./pages/LoginPage/LoginPage";
 
 import DasboardPage from "./pages/Admin/DashboardPage/DasboardPage";
 import OrderPage from "./pages/Admin/OrderPage/OrderPage";
+import AdminProductPage from "./pages/Admin/AdminProductPage/AdminProductPage";
+import AdminCreateProduct from "./pages/Admin/AdminCreateProduct/AdminCreateProduct";
 
 import Loader from "./components/Loader/Loader";
 import axios from "./utils/axios";
@@ -32,16 +34,22 @@ function App() {
   useEffect(() => {
     if (globalState.token) {
       async function fetchData() {
-        const data = await axios.get("/api/users/getUserData");
-        dispatch(setUserData(data.data));
-        setLoading(false);
-        console.log(globalState);
+        try{
+          const data = await axios.get("/api/users/getUserData");
+          dispatch(setUserData(data.data));
+          setLoading(false);
+          console.log(globalState);
+  
+        } catch(err){
+          console.log(err);
+          localStorage.removeItem("token");
+        }
       }
       fetchData();
     } else {
       setLoading(false);
     }
-  }, [dispatch, globalState.token]);
+  }, []);
 
   return (
     <Router history={history}>
@@ -57,6 +65,8 @@ function App() {
           <LoginRoute exact path="/login" component={Login} />
           <AdminRoute exact path="/admin" component={DasboardPage}/>
           <AdminRoute exact path="/admin/order/:id" component={OrderPage}/>
+          <AdminRoute exact path="/admin/producto/:product" component={AdminProductPage} />
+          <AdminRoute exact path="/admin/nuevo/producto" component={AdminCreateProduct} />
         </Layout>
       ) : (
         <Loader />

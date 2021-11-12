@@ -1,6 +1,7 @@
 import React from 'react';
 
 import AdminOrders from '../../../components/Admin/AdminOrders/AdminOrders';
+import AdminProducts from '../../../components/Admin/AdminProducts/AdminProducts';
 
 import './DashboardPage.css';
 
@@ -9,7 +10,7 @@ function DasboardPage() {
 
     const pages = {
         orders: <AdminOrders />,
-        products: <div>products</div>,
+        products: <AdminProducts />,
     }
 
     const handleClick = (page) => {

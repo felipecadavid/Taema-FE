@@ -14,9 +14,14 @@ function AdminOrders(props) {
 
   useEffect(() => {
     async function getOrders() {
+      try{
       const response = await axios.get("/api/orders");
       setState({ ...state, orders: response.data, loading: false });
-    }
+      } catch(err) {
+        localStorage.removeItem("token");
+        history.push("/");
+      }
+    } 
     getOrders();
   }, []);
 
@@ -24,7 +29,7 @@ function AdminOrders(props) {
     pending: "Pendiente",
     shipped: "Enviado",
     delivered: "Entregado",
-    cancelled: "Cancelado",
+    canceled: "Cancelado",
   };
 
   return (
