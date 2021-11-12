@@ -1,0 +1,77 @@
+.orderpage__status-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.orderpage__status-controls__buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.orderpage__status-controls__button {
+  padding: 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: var(--color-a);
+  border: none;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.orderpage__status-controls__button:hover {
+  background-color: var(--color-d);
+}
+
+.orderpage__status-controls__button.pending {
+  color: rgb(143, 143, 0);
+}
+
+.orderpage__status-controls__button.shipped {
+  color: blue;
+}
+
+.orderpage__status-controls__button.delivered {
+  color: green;
+}
+
+.orderpage__status-controls__button.canceled {
+  color: red;
+}
+
+.orderpage__status-controls__button.selected {
+  background-color: var(--color-c);
+  cursor: initial;
+}
+.orderpage__status-controls__button.selected:hover {
+  background-color: var(--color-c);
+}
+
+.orderpage__status-controls__button.disabled {
+  background-color: rgb(179, 179, 179);
+  cursor: initial;
+}
+
+@media (min-width: 960px) {
+  .orderpage-container {
+    display: flex;
+    justify-content: center;
+    gap: 500px;
+  }
+
+  .orderpage__carousel{
+      width: 20%;
+      /* height: 200px; */
+  }
+
+  .orderpage__data{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+  }
+}

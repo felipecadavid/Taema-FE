@@ -1,0 +1,40 @@
+.dashboard-nav__ul{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dashboard-nav__li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px 0;
+    margin: 0;
+    background-color: var(--color-a);
+    color: var(--color-h);
+    font-weight: bold;
+    font-size: 1.3rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.dashboard-nav__li.selected{
+    background-color: var(--color-b);
+    color: var(--color-h);
+    cursor: initial;
+}
+
+
+.dashboard-nav__li:hover{
+    background-color: var(--color-d);
+    color: var(--color-h);
+}
+
+.dashboard-nav__li.selected:hover{
+    background-color: var(--color-b);
+    color: var(--color-h);
+}

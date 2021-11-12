@@ -1,22 +1,31 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+import Swal from "sweetalert2";
 
 import "./ProductComponent.css";
 
 function ProductComponent({ product }) {
-  function getDiscountedPrice() {
-    const { price, discount } = product;
-    return price - (price * discount) / 100;
+  const { _id: id, name, image, price, discount, totalPrice, stock } = product;
+
+  const handleClick = e => {
+    if (stock) return;
+    e.preventDefault();
+    Swal.fire({
+      icon: "info",
+      title: "Producto agotado",
+      text: "Lo sentimos, actualmente este producto está agotado"
+    })
   }
 
-  const { name, image, price, discount } = product;
   return (
-    <div>
+    <div className={`${!stock && "productcomponent--outofstock"}`}>
       {discount && (
-        <div className="productcomponent-discount-container">
+        <Link onClick={handleClick} to={{ pathname: `/producto/${id}`, product}} className="productcomponent-discount-container">
           <span className="productcomponent__discount">{discount}% OFF</span>
-        </div>
+        </Link>
       )}
-      <div className="productcomponent-container">
+      <Link onClick={handleClick} to={{ pathname: `/producto/${id}`, product}} className="productcomponent-container">
         <div className="productcomponent__image-container">
           <img className="productcomponent__image" src={image} alt={name} />
         </div>
@@ -26,10 +35,11 @@ function ProductComponent({ product }) {
             ${price}
           </h4>
           {discount && (
-            <h4 className="productcomponent__price">${getDiscountedPrice()}</h4>
+            <h4 className="productcomponent__price">${totalPrice}</h4>
           )}
+          {!stock && <h4 className="productcomponent__outofstock">Agotado</h4>}
         </div>
-      </div>
+      </Link>
     </div>
   );
 }

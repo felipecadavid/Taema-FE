@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios";
+import Loader from '../../components/Loader/Loader'
 
 import ProductList from "../../components/ProductList/ProductList";
 
@@ -20,7 +21,7 @@ function ProductsPage(props) {
     getProducts();
   }, [state]);
 
-  return <>{state.loading ? <div>Loading...</div> : <ProductList products={state.products}/>}</>;
+  return <>{state.loading ? <Loader /> : <ProductList products={state.products}/>}</>;
 }
 
 export default ProductsPage;

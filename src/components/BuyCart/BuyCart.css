@@ -1,0 +1,126 @@
+.cart__purchase-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cart__purchase-details > h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 20px 0;
+    padding: 0;
+    color: #000;
+  }
+  
+  .react-calendar {
+    width: 100%;
+    /* height: 350px; */
+  }
+  
+  .cart__purchase-error-span {
+    color: red;
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .cart__purchase-label {
+    font-size: 1.7rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .cart__purchase__input-container {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+  }
+  
+  .cart__purchase-input {
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid black;
+    font-size: 1.4rem;
+    padding: 0 8px;
+  }
+  
+  .cart__purchase-input:focus {
+    outline: none;
+  }
+  
+  .cart__purchase__submit{
+      width: 100%;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid black;
+      font-size: 1.4rem;
+      font-weight: bold;
+      background-color: var(--color-b);
+      color: black;
+      cursor: pointer;
+      margin: 10px 0;
+  }
+
+  ul.thumbs.animated {
+    display: none;
+  }
+
+  .cart__purchase__method-container{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .cart__purchase-input--radio-container{
+    display: flex;
+    align-items: center;
+  }
+  
+  .cart__purchase-input--radio-container > label{
+    font-size: 1.5rem;
+  }
+  
+  .cart__purchase-input--radio{
+    width: 20px;
+    height: 20px;
+  }
+
+
+  @media (min-width: 998px) {
+    .cart-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+    }
+    .cart__carousel-container {
+      width: 30%;
+    }
+    .cart__carousel-container > h1 {
+      position: absolute;
+    }
+    .cart__form-container {
+      width: 40%;
+    }
+    .cart__form-container > .cart__carousel {
+      width: 200px;
+    }
+    .cart__title {
+      display: none;
+    }
+    .react-calendar {
+      width: 50%;
+      margin: 10px auto;
+    }
+  }
