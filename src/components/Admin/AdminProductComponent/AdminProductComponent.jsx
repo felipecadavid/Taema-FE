@@ -8,24 +8,14 @@ import "./AdminProductComponent.css";
 function AdminProductComponent({ product }) {
   const { _id: id, name, image, price, discount, totalPrice, stock } = product;
 
-  const handleClick = e => {
-    if (stock) return;
-    e.preventDefault();
-    Swal.fire({
-      icon: "info",
-      title: "Producto agotado",
-      text: "Lo sentimos, actualmente este producto está agotado"
-    })
-  }
-
   return (
     <div className={`${!stock && "productcomponent--outofstock"}`}>
       {discount && (
-        <Link onClick={handleClick} to={{ pathname: `/admin/producto/${id}`, product}} className="productcomponent-discount-container">
+        <Link to={{ pathname: `/admin/producto/${id}`, product}} className="productcomponent-discount-container">
           <span className="productcomponent__discount">{discount}% OFF</span>
         </Link>
       )}
-      <Link onClick={handleClick} to={{ pathname: `/admin/producto/${id}`, product}} className="productcomponent-container">
+      <Link to={{ pathname: `/admin/producto/${id}`, product}} className="productcomponent-container">
         <div className="productcomponent__image-container">
           <img className="productcomponent__image" src={image} alt={name} />
         </div>

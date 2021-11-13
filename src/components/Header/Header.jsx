@@ -47,12 +47,12 @@ function Header() {
             <li>
               <Link to="/">Preguntas Frecuentes</Link>
             </li>
-            <li>
-              <Link to="/">Ingresar</Link>
-            </li>
-            <li>
-              <Link to="/">Registrarse</Link>
-            </li>
+            {/* <li> */}
+              {/* <Link to="/">Ingresar</Link> */}
+            {/* </li> */}
+            {/* <li> */}
+              {/* <Link to="/">Registrarse</Link> */}
+            {/* </li> */}
           </ul>
           <input className="header__navigate__input" type="text" placeholder="Busca lo que deseas" />
         </div>

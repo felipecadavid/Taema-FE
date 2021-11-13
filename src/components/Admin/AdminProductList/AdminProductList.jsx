@@ -7,14 +7,18 @@ import "./AdminProductList.css";
 
 function AdminProductList({ products }) {
   return (
-    <div className="productlist-margin admin">
-      <Link to="/admin/nuevo/producto" className="productlist__new">Nuevo</Link>
-      <div className="productlist-container">
-        {products.map((product) => (
-          <AdminProductComponent key={product._id} product={product} />
-        ))}
+      <div className="adminproductlist-container">
+        <Link to="/admin/nuevo/producto" className="productlist__new">
+          Nuevo
+        </Link>
+        <div className="productlist-margin admin">
+          <div className="productlist-container">
+            {products.map((product) => (
+              <AdminProductComponent key={product._id} product={product} />
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
   );
 }
 
