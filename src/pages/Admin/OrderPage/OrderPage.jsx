@@ -1,5 +1,6 @@
 import axios from "../../../utils/axios";
 import React, { useState, useEffect } from "react";
+import { format } from "date-fns";
 
 import Loader from "../../../components/Loader/Loader";
 import ProductsCarousel from "../../../components/ProductsCarousel/ProductsCarousel";
@@ -93,6 +94,12 @@ function OrderPage(props) {
       orderStatus[order.orderStatus] === "Entregado"
     }`
   );
+
+  const paymentMethods = {
+    cash: "Efectivo",
+    card: "Tarjeta",
+    PSE: "Pago PSE"
+  }
   return (
     <>
       {loading ? (
@@ -110,6 +117,9 @@ function OrderPage(props) {
             <div className="orderpage__data">
               <h3>Datos del cliente: </h3>
               <p>
+                <strong>Nombre del que recibe:</strong> {order.clientName}
+              </p>
+              <p>
                 <strong>Correo:</strong> {order.clientEmail}
               </p>
               <p>
@@ -122,7 +132,10 @@ function OrderPage(props) {
                 <strong>Ciudad:</strong> {order.shippingCity}
               </p>
               <p>
-                <strong>Método de pago:</strong> {order.paymentMethod}
+                <strong>Método de pago:</strong> {paymentMethods[order.paymentMethod]}
+              </p>
+              <p>
+                <strong>Fecha de entrega:</strong> {format(new Date(order.orderDate), "dd/MM/yyyy")}
               </p>
               <p>
                 <strong>Estado de la orden:</strong>{" "}

@@ -24,6 +24,10 @@
   cursor: pointer;
 }
 
+.orderpage__data > *{
+  font-size: 1.4rem;
+}
+
 .orderpage__status-controls__button:hover {
   background-color: var(--color-d);
 }
@@ -43,6 +47,7 @@
 .orderpage__status-controls__button.canceled {
   color: red;
 }
+
 
 .orderpage__status-controls__button.selected {
   background-color: var(--color-c);
@@ -64,14 +69,18 @@
     gap: 500px;
   }
 
-  .orderpage__carousel{
-      width: 20%;
-      /* height: 200px; */
+  .orderpage__carousel {
+    width: 20%;
+    display: flex;
+    align-items: center;
+  }
+  .products-carousel__carousel{
+    width: 500px;
   }
 
-  .orderpage__data{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+  .orderpage__data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }
