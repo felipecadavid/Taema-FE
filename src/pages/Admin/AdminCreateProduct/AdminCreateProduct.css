@@ -1,0 +1,57 @@
+.createproduct-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.createproduct__form__input{
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.createproduct__form__input.file{
+  display: none;
+}
+
+.createproduct__form__label{
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.createproduct__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 20px;
+}
+
+.createproduct__form__input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.createproduct__form__input--textarea {
+  resize: none;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+
+@media (min-width: 960px) {
+  .createproduct-container {
+    flex-direction: row;
+    gap: 200px;
+  }
+
+  .createproduct__form {
+    width: 25%;
+  }
+}

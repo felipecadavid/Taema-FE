@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 
 import "./ProductComponent.css";
 
-function ProductComponent({ product }) {
+function ProductComponent({ product, disabled }) {
   const { _id: id, name, image, price, discount, totalPrice, stock } = product;
 
   const handleClick = e => {
@@ -25,7 +25,7 @@ function ProductComponent({ product }) {
           <span className="productcomponent__discount">{discount}% OFF</span>
         </Link>
       )}
-      <Link onClick={handleClick} to={{ pathname: `/producto/${id}`, product}} className="productcomponent-container">
+      <Link onClick={handleClick} to={!disabled ? { pathname: `/producto/${id}`, product}: "/admin/nuevo/producto"} className="productcomponent-container">
         <div className="productcomponent__image-container">
           <img className="productcomponent__image" src={image} alt={name} />
         </div>

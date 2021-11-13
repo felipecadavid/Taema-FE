@@ -14,3 +14,13 @@
     cursor: pointer;
     user-select: none;
 }
+
+@media (min-width: 960px) {
+    .orders-container{
+        align-items: center;
+        margin: 20px 0;
+    }
+.order-container{
+    width: 70%;
+}
+}

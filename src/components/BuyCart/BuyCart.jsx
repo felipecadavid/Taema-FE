@@ -33,6 +33,8 @@ function BuyCart(props) {
     shippingCity: null,
     shippingAddress: null,
     isPaying: false,
+    shippingTime: null,
+    clientName: null,
   });
   const currentDate = new Date();
   const handleDateChange = (value, e) => {
@@ -56,7 +58,6 @@ function BuyCart(props) {
     }
   };
 
-
   const createOrder = () => {
     const {
       orderDate,
@@ -64,6 +65,8 @@ function BuyCart(props) {
       clientPhone,
       shippingCity,
       shippingAddress,
+      shippingTime,
+      clientName
     } = state;
 
     const productsToSend = products.map((product) => {
@@ -79,6 +82,8 @@ function BuyCart(props) {
       clientPhone: clientPhone,
       shippingCity: shippingCity,
       shippingAddress: shippingAddress,
+      shippingTime: shippingTime,
+      clientName: clientName,
     };
     setState({ ...state, loading: true });
     console.log(order);
@@ -104,7 +109,7 @@ function BuyCart(props) {
           text: "Ha ocurrido un error, por favor intenta de nuevo",
         });
       });
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -172,6 +177,30 @@ function BuyCart(props) {
               La fecha de entrega debe ser a partir de mañana
             </span>
           )}
+          <div className="single__purchase-input-container">
+              <label className="single__purchase-label" htmlFor="shippingTime">
+                Horario en que puede recibir*
+              </label>
+              <select className="single__purchase__input" onChange={handleChange} name="shippingTime" id="shippingTime" defaultValue="default">
+                <option disabled hidden value="default">Selecciona un horario</option>
+                <option value="morning">Mañana, de 7 a 12 de la mañana</option>
+                <option value="afternoon">Tarde, de 1 a 5 de la tarde</option>
+                <option value="night">Noche, de 6 a 9 de la noche</option>
+              </select>
+            </div>
+          <div className="single__purchase__input-container">
+            <label className="single__purchase-label" htmlFor="email">
+              Nombre de la persona que recibe*
+            </label>
+            <input
+              onChange={handleChange}
+              className="single__purchase-input"
+              id="text"
+              type="text"
+              placeholder="Ej. Pepito Pérez"
+              name="clientName"
+            />
+          </div>
           <div className="cart__purchase__input-container">
             <label className="cart__purchase-label" htmlFor="email">
               Correo electrónico*
