@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios";
 import ReactImageMagnify from "react-image-magnify";
+import {
+  Image,
+  Video,
+  Transformation,
+  CloudinaryContext,
+} from "cloudinary-react";
 
 import history from "../../utils/history";
 
 import "./ProductPage.css";
 import { useDispatch } from "react-redux";
-import {useSelector} from 'react-redux'
+import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import addToCart from "../../actions/addToCart";
 
 function ProductPage(props) {
   const dispatch = useDispatch();
-  const cart = useSelector(state => state.cart)
+  const cart = useSelector((state) => state.cart);
   const [state, setState] = useState({
     product: props.location.product,
     loading: props.location.product ? false : true,
@@ -65,14 +71,14 @@ function ProductPage(props) {
         quantity: state.quantity,
       };
 
-      if(cart.find(item => item.product === state.product._id)){
-        const item = cart.find(item => item.product === state.product._id);
-        if(item.quantity + state.quantity > state.product.stock){
+      if (cart.find((item) => item.product === state.product._id)) {
+        const item = cart.find((item) => item.product === state.product._id);
+        if (item.quantity + state.quantity > state.product.stock) {
           Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'No hay suficiente stock',
-          })
+            icon: "error",
+            title: "Oops...",
+            text: "No hay suficiente stock",
+          });
           return;
         }
       }
@@ -81,13 +87,14 @@ function ProductPage(props) {
         icon: "success",
         title: "Producto agregado al carrito",
       });
-    }
-    else if(button === "Comprar"){
+    } else if (button === "Comprar") {
       const order = {
         product: state.product._id,
         quantity: state.quantity,
       };
-      history.push(`/comprar?product=${order.product}&quantity=${order.quantity}`);
+      history.push(
+        `/comprar?product=${order.product}&quantity=${order.quantity}`
+      );
     }
   };
 
@@ -101,7 +108,7 @@ function ProductPage(props) {
       ) : (
         <div className="productpage-container">
           <div className="productpage__image-container">
-            <ReactImageMagnify
+            {/* <ReactImageMagnify
               {...{
                 smallImage: {
                   alt: "Wristwatch by Ted Baker London",
@@ -117,7 +124,10 @@ function ProductPage(props) {
                 hoverDelayInMs: 0,
                 // hoverOffDelayInMs: 0
               }}
-            />
+            /> */}
+            <CloudinaryContext cloudName="taema-detalles">
+                <Image publicId={image} width="50" />
+            </CloudinaryContext>
           </div>
           <div className="productpage__info-container">
             <h1 className="productpage__name">{name}</h1>
@@ -127,13 +137,12 @@ function ProductPage(props) {
             )}
             <h2 className="productpage__price">${totalPrice}</h2>
             <p className="productpage__description">{description}</p>
-            <strong>NO INCLUYE VALOR DEL DOMICILIO</strong>
             <p className="productpage__stock">Unidades disponibles: {stock}</p>
             <div className="productpage__quantities-container">
               <button
                 onClick={handleClick}
                 type="button"
-                className="productpage__quantity-button"
+                className="productpage__quantity-button type-button"
               >
                 -
               </button>
@@ -155,16 +164,24 @@ function ProductPage(props) {
               <button
                 onClick={handleClick}
                 type="button"
-                className="productpage__quantity-button"
+                className="productpage__quantity-button type-button"
               >
                 +
               </button>
             </div>
             <div className="productpage__buttons-container">
-              <button onClick={handleClick} type="button" className="productpage__buy-button">
+              <button
+                onClick={handleClick}
+                type="button"
+                className="productpage__buy-button type-button"
+              >
                 Comprar
               </button>
-              <button onClick={handleClick} type="button" className="productpage__add-cart-button">
+              <button
+                onClick={handleClick}
+                type="button"
+                className="productpage__add-cart-button type-button"
+              >
                 Agregar al carrito
               </button>
             </div>

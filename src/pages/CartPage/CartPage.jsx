@@ -42,7 +42,7 @@ function CartPage() {
           {products.length ? <>{products.map((product, index) => (
             <CartProduct key={index} productInCartIndex={index} product={product} />
           ))}
-          <Link to="/comprar?cart=true" className="cart-page__button" type="button">Comprar</Link></> :
+          <Link to="/comprar?cart=true" className="cart-page__button type-button" type="button">Comprar</Link></> :
             <div className="cart-page__empty">
               <h2>No hay productos en el carrito</h2>
               <p>Puedes agregar productos al carrito desde la sección de productos</p>

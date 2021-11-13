@@ -6,7 +6,7 @@ import './ProductsCarousel.css'
 function ProductsCarousel({ products, details }) {
   console.log("PRODUCTS CAROUSEL: ", products);
   return (
-    <Carousel swipeable={false}>
+    <Carousel className="products-carousel__carousel" swipeable={false}>
       {products.map((product) => {
         return (
           <div key={product._id}>

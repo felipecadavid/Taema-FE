@@ -26,10 +26,6 @@
   align-items: center;
 }
 
-.productpage__image-container > div > img {
-  /* width: 400px; */
-}
-
 .productpage__info-container {
   height: 100%;
   display: flex;
