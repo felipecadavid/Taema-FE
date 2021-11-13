@@ -5,7 +5,7 @@ import "./Loader.css";
 function Loader() {
   return (
     <div className="loader-container">
-      <div class="lds-heart">
+      <div className="lds-heart">
         <div></div>
       </div>
     </div>

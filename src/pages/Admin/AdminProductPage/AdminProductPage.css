@@ -1,0 +1,126 @@
+.productpage__quantity-input {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  font-size: 2.2rem;
+}
+
+.adminproductpage-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.productpage__quantity-button {
+  width: 40px;
+  height: 40px;
+  font-size: 2rem;
+}
+
+.adminproductpage__image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.productpage__image-container > div > img {
+  /* width: 400px; */
+}
+
+.productpage__info-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  align-self: center;
+}
+
+.productpage__price.strike {
+  text-decoration: line-through;
+  font-style: italic;
+}
+
+.productpage__buttons-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.productpage__buttons-container > button {
+  width: 50%;
+  height: 40px;
+}
+
+.productpage__info-container__form__input--file {
+  display: none;
+}
+
+.productpage__info-container__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.productpage__info-container__form__input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.productpage__info-container__form__label {
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.productpage__info-container__form__buttons-container {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.productpage__info-container__form__input {
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.productpage__info-container__form__input--textarea {
+  resize: none;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+
+.productpage__info-container__form__button:nth-child(2) {
+  background-color: rgb(185, 0, 0);
+  color: white;
+}
+
+@media (min-width: 960px) {
+  .adminproductpage-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 200px;
+  }
+
+  .productpage__info-container{
+    width: 25%;
+  }
+  .productpage__info-container__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px;
+  }
+}
