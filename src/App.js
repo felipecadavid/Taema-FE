@@ -18,6 +18,7 @@ import ProductPage from "./pages/ProductPage/ProductPage";
 import CartPage from "./pages/CartPage/CartPage";
 import BuyPage from "./pages/BuyPage/BuyPage";
 import Login from "./pages/LoginPage/LoginPage";
+import SearchPage from "./pages/SearchPage/SearchPage";
 
 import DasboardPage from "./pages/Admin/DashboardPage/DasboardPage";
 import OrderPage from "./pages/Admin/OrderPage/OrderPage";
@@ -62,6 +63,7 @@ function App() {
           <Route exact path="/producto/:product" component={ProductPage} />
           <Route exact path="/carrito" component={CartPage} />
           <Route exact path="/comprar" component={BuyPage} />
+          <Route exact path="/search" component={SearchPage} />
           <LoginRoute exact path="/login" component={Login} />
           <AdminRoute exact path="/admin" component={DasboardPage}/>
           <AdminRoute exact path="/admin/order/:id" component={OrderPage}/>
