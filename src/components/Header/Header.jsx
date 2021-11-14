@@ -6,6 +6,8 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 
+import history from "../../utils/history";
+
 import "./Header.css";
 
 import Logo from "../../assets/logo/Logo.png";
@@ -24,6 +26,12 @@ function Header() {
   const toggleMenu = () => {
     setMenu((prevState) => !prevState);
   };
+
+  const handleSearch = e => {
+    if(e.key === 'Enter') {
+      history.push(`/search?q=${e.target.value}`)
+    }
+  }
 
   return (
     <header className="header">
@@ -47,14 +55,8 @@ function Header() {
             <li>
               <Link to="/">Preguntas Frecuentes</Link>
             </li>
-            {/* <li> */}
-              {/* <Link to="/">Ingresar</Link> */}
-            {/* </li> */}
-            {/* <li> */}
-              {/* <Link to="/">Registrarse</Link> */}
-            {/* </li> */}
           </ul>
-          <input className="header__navigate__input" type="text" placeholder="Busca lo que deseas" />
+          <input onKeyDown={handleSearch} className="header__navigate__input" type="search" placeholder="Buscar" />
         </div>
         <div className="header__mobile-buttons-container">
           <Link
