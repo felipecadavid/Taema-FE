@@ -80,7 +80,7 @@ function PayComponent({ createOrder, totalToPay }) {
         });
         createOrder();
       } else {
-          console.log(data)
+        console.log(data);
         setState({
           ...state,
           loading: false,
@@ -130,6 +130,7 @@ function PayComponent({ createOrder, totalToPay }) {
     const data = await axios.post("/api/payments/create-card", cardData);
 
     if (!data.data.token.success) {
+      setState({ ...state, loading: false });
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -217,7 +218,7 @@ function PayComponent({ createOrder, totalToPay }) {
                   Número de tarjeta
                 </label>
                 <input
-                  className="epayco-form__input"
+                  className="type-inputfield"
                   onChange={handleChange}
                   name="card[number]"
                   id="number"
@@ -230,7 +231,8 @@ function PayComponent({ createOrder, totalToPay }) {
                     Año de expiración
                   </label>
                   <input
-                    className="epayco-form__input"
+                    style={{ width: "93%" }}
+                    className="type-inputfield"
                     onChange={handleChange}
                     name="card[exp_year]"
                     id="exp_year"
@@ -242,7 +244,8 @@ function PayComponent({ createOrder, totalToPay }) {
                     Mes de expiración
                   </label>
                   <input
-                    className="epayco-form__input"
+                    style={{width: "93%"}}
+                    className="type-inputfield"
                     onChange={handleChange}
                     name="card[exp_month]"
                     id="exp_month"
@@ -255,7 +258,7 @@ function PayComponent({ createOrder, totalToPay }) {
                   CVC
                 </label>
                 <input
-                  className="epayco-form__input"
+                  className="type-inputfield"
                   onChange={handleChange}
                   name="card[cvc]"
                   id="cvc"
@@ -277,7 +280,7 @@ function PayComponent({ createOrder, totalToPay }) {
                     Nombre
                   </label>
                   <input
-                    className="epayco-form__input"
+                    className="type-inputfield"
                     onChange={handleChange}
                     defaultValue=""
                     id="name"
@@ -290,7 +293,7 @@ function PayComponent({ createOrder, totalToPay }) {
                     Apellido
                   </label>
                   <input
-                    className="epayco-form__input"
+                    className="type-inputfield"
                     onChange={handleChange}
                     defaultValue=""
                     id="last_name"
@@ -303,7 +306,7 @@ function PayComponent({ createOrder, totalToPay }) {
                     Correo electrónico
                   </label>
                   <input
-                    className="epayco-form__input"
+                    className="type-inputfield"
                     onChange={handleChange}
                     defaultValue=""
                     id="email"
@@ -316,7 +319,7 @@ function PayComponent({ createOrder, totalToPay }) {
                     Tipo de documento
                   </label>
                   <select
-                    className="epayco-form__input"
+                    className="type-inputfield"
                     onChange={handleChange}
                     name="doc_type"
                     id="doc_type"
@@ -330,7 +333,7 @@ function PayComponent({ createOrder, totalToPay }) {
                     Número de documento
                   </label>
                   <input
-                    className="epayco-form__input"
+                    className="type-inputfield"
                     onChange={handleChange}
                     id="doc_number"
                     name="doc_number"
@@ -342,7 +345,7 @@ function PayComponent({ createOrder, totalToPay }) {
                     Ciudad
                   </label>
                   <input
-                    className="epayco-form__input"
+                    className="type-inputfield"
                     onChange={handleChange}
                     id="city"
                     name="city"
@@ -354,7 +357,7 @@ function PayComponent({ createOrder, totalToPay }) {
                     Dirección
                   </label>
                   <input
-                    className="epayco-form__input"
+                    className="type-inputfield"
                     onChange={handleChange}
                     id="address"
                     name="address"
@@ -366,7 +369,7 @@ function PayComponent({ createOrder, totalToPay }) {
                     Teléfono
                   </label>
                   <input
-                    className="epayco-form__input"
+                    className="type-inputfield"
                     onChange={handleChange}
                     id="phone"
                     name="phone"
@@ -378,7 +381,7 @@ function PayComponent({ createOrder, totalToPay }) {
                     Teléfono celular
                   </label>
                   <input
-                    className="epayco-form__input"
+                    className="type-inputfield"
                     onChange={handleChange}
                     id="cell_phone"
                     name="cell_phone"

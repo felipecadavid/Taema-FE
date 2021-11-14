@@ -66,7 +66,7 @@ function BuyCart(props) {
       shippingCity,
       shippingAddress,
       shippingTime,
-      clientName
+      clientName,
     } = state;
 
     const productsToSend = products.map((product) => {
@@ -178,16 +178,25 @@ function BuyCart(props) {
             </span>
           )}
           <div className="single__purchase-input-container">
-              <label className="single__purchase-label" htmlFor="shippingTime">
-                Horario en que puede recibir*
-              </label>
-              <select className="single__purchase__input" onChange={handleChange} name="shippingTime" id="shippingTime" defaultValue="default">
-                <option disabled hidden value="default">Selecciona un horario</option>
-                <option value="morning">Mañana, de 7 a 12 de la mañana</option>
-                <option value="afternoon">Tarde, de 1 a 5 de la tarde</option>
-                <option value="night">Noche, de 6 a 9 de la noche</option>
-              </select>
-            </div>
+            <label className="single__purchase-label" htmlFor="shippingTime">
+              Horario en que puede recibir*
+            </label>
+            <select
+              style={{ width: "100%" }}
+              className="single__purchase__input type-inputfield"
+              onChange={handleChange}
+              name="shippingTime"
+              id="shippingTime"
+              defaultValue="default"
+            >
+              <option disabled hidden value="default">
+                Selecciona un horario
+              </option>
+              <option value="morning">Mañana, de 7 a 12 de la mañana</option>
+              <option value="afternoon">Tarde, de 1 a 5 de la tarde</option>
+              <option value="night">Noche, de 6 a 9 de la noche</option>
+            </select>
+          </div>
           <div className="single__purchase__input-container">
             <label className="single__purchase-label" htmlFor="email">
               Nombre de la persona que recibe*

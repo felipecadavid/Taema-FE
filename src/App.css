@@ -79,6 +79,15 @@ body {
   box-sizing: border-box;
 }
 
+.type-inputfield{
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
 textarea{
   resize: none;
 }

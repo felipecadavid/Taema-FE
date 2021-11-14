@@ -53,7 +53,7 @@ function BuySingleProduct(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (state.orderDate.error) {
+    if (state.orderDate.error || !state.orderDate.value) {
       Swal.fire({
         title: "Error",
         text: "Por favor selecciona una fecha válida, la fecha debe ser posterior a hoy",
