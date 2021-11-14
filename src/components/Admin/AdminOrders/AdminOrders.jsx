@@ -41,7 +41,7 @@ function AdminOrders(props) {
           {state.orders.map((order) => (
             <div onClick={() => history.push(`/admin/order/${order._id}`)} className="order-container" key={order._id}>
               <div>
-                <h3>ID de orden: {order._id}</h3>
+                <h3>Numero de orden: {order.orderNumber}</h3>
               </div>
               <p>Cliente: {order.clientEmail}</p>
               <p>Estado: {orderStatus[order.orderStatus]}</p>

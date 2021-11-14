@@ -107,7 +107,7 @@ function OrderPage(props) {
       ) : (
         <>
           <div>
-            <h2>Orden {order._id}</h2>
+            <h2>Orden {order.orderNumber}</h2>
             <h3>Productos: </h3>
           </div>
           <div className="orderpage-container">
