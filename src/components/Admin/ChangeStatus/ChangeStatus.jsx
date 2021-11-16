@@ -1,36 +1,42 @@
-import React from "react";
-import axios from '../../../utils/axios';
+import React, { useState } from "react";
+import axios from "../../../utils/axios";
 
-import './ChangeStatus.css';
+import "./ChangeStatus.css";
 
 function ChangeStatus({ getOrder, swal, order, newStatus }) {
-    console.log(order)
+  console.log(order);
+  const [message, setMessage] = useState("");
 
-    const orderStatus = {
-        Pendiente: "pending",
-        Enviado: "shipped",
-        Entregado: "delivered",
-        Cancelado: "canceled"
-    }
-    const changeOrderStatus = async () => {
-        const response = await axios.put(`/api/orders/${order._id}`, {
-            status: orderStatus[newStatus],
-        });
-        console.log(response);
-    }
-  
-    const handleClick = async e => {
-      if(e.target.innerText === "Cancelar"){
-        swal.close();
-        return;
-      }
+  const orderStatus = {
+    Pendiente: "pending",
+    Enviado: "shipped",
+    Entregado: "delivered",
+    Cancelado: "canceled",
+  };
+  const changeOrderStatus = async () => {
+    const response = await axios.put(`/api/orders/${order._id}`, {
+      status: orderStatus[newStatus],
+      message,
+    });
+    console.log(response);
+  };
 
-      if(e.target.innerText === "Confirmar"){
-          console.log("click")
-        await changeOrderStatus();
-        swal.close();
-        getOrder();
-      }
+  const handleChange = (e) => {
+    setMessage(e.target.value);
+  };
+
+  const handleClick = async (e) => {
+    if (e.target.innerText === "Cancelar") {
+      swal.close();
+      return;
+    }
+
+    if (e.target.innerText === "Confirmar") {
+      console.log("click");
+      await changeOrderStatus();
+      swal.close();
+      getOrder();
+    }
   };
 
   return (
@@ -43,6 +49,7 @@ function ChangeStatus({ getOrder, swal, order, newStatus }) {
           <h3>Si cambias el estado a cancelado no podrás revertirlo después</h3>
           <h4>Puedes adjuntar el motivo de la cancelación</h4>
           <textarea
+            onChange={handleChange}
             className="changestatus__textarea"
             placeholder="Motivo de la cancelación"
             name=""
