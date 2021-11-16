@@ -1,0 +1,14 @@
+.whatsapp-button-container{
+    position: fixed;
+    right: 35px;
+    bottom: 35px;
+    z-index: 9999;
+}
+
+.whatsapp-button-container > a {
+    color: var(--color-e);
+}
+
+.whatsapp-button-container > a > svg {
+    font-size: 80px;
+}
