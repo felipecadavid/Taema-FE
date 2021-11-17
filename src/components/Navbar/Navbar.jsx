@@ -13,7 +13,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar__mobile">
-        <input onKeyDown={handleSearch} type="search" placeholder="Buscar" />
+        <input className="type-inputfield" onKeyDown={handleSearch} type="search" placeholder="Buscar" />
       </div>
       <div className="navbar__desktop">
         <ul>

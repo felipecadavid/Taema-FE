@@ -45,6 +45,15 @@
   margin-bottom: 10px;
 }
 
+.createproduct__form__input-container.hascard{
+  flex-direction: row;
+  align-items: center;
+}
+
+.createproduct__form__input-container.hascard > .createproduct__form__input.type-checkbox {
+  margin-right: 10px;
+}
+
 @media (min-width: 960px) {
   .createproduct-container {
     flex-direction: row;

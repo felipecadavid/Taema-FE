@@ -27,6 +27,7 @@ function BuyPage() {
   const product = query.get("product") || "";
   const cart = query.get("cart") || "";
   const quantity = query.get("quantity") || "";
+  const cardMessage = query.get("cardMessage") || "";
 
   if (!((product.length || cart) && (quantity.length || cart))) {
     history.replace("/");
@@ -66,7 +67,7 @@ function BuyPage() {
         <Loader />
       ) : !cart ? (
         <>
-          <BuySingleProduct product={state.product} quantity={quantity} />
+          <BuySingleProduct product={state.product} cardMessage={cardMessage} quantity={quantity} />
         </>
       ) : (
         <BuyCart products={state.cart} />

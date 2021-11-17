@@ -10,7 +10,7 @@ import ProductsCarousel from "../ProductsCarousel/ProductsCarousel";
 import "./BuySingleProduct.css";
 
 function BuySingleProduct(props) {
-  const { product, quantity } = props;
+  const { product, quantity, cardMessage } = props;
   const { totalPrice } = product;
   const totalToPay = totalPrice * quantity;
 
@@ -53,7 +53,7 @@ function BuySingleProduct(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (state.orderDate.error) {
+    if (state.orderDate.error || !state.orderDate.value) {
       Swal.fire({
         title: "Error",
         text: "Por favor selecciona una fecha válida, la fecha debe ser posterior a hoy",
@@ -136,7 +136,7 @@ function BuySingleProduct(props) {
     const productId = product._id;
 
     const order = {
-      orderItems: [{ productId, quantity }],
+      orderItems: [{ productId, quantity, cardMessage }],
       orderDate: orderDate.value,
       clientEmail: clientEmail,
       clientPhone: clientPhone,
@@ -144,8 +144,10 @@ function BuySingleProduct(props) {
       shippingAddress: shippingAddress,
       paymentMethod: paymentMethod,
       shippingTime: shippingTime,
-      clientName: clientName
+      clientName: clientName,
     };
+
+    console.log("ORDEN: ", order)
 
     setState({ ...state, loading: true });
     console.log(order);
@@ -304,7 +306,7 @@ function BuySingleProduct(props) {
                 />
                 <label htmlFor="card">Pago en línea con Tarjeta</label>
               </div>
-              <div className="single__purchase-input--radio-container">
+              {/* <div className="single__purchase-input--radio-container">
                 <input
                   onChange={handleChange}
                   className="single__purchase-input--radio"
@@ -313,7 +315,7 @@ function BuySingleProduct(props) {
                   id="PSE"
                 />
                 <label htmlFor="PSE">Pago PSE</label>
-              </div>
+              </div> */}
             </div>
             <h2>Total a pagar: ${totalToPay}</h2>
             <button className="single__purchase__submit" type="submit">

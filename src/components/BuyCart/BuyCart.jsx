@@ -35,6 +35,7 @@ function BuyCart(props) {
     isPaying: false,
     shippingTime: null,
     clientName: null,
+    paymentMethod: null
   });
   const currentDate = new Date();
   const handleDateChange = (value, e) => {
@@ -57,6 +58,7 @@ function BuyCart(props) {
       });
     }
   };
+  console.log(state)
 
   const createOrder = () => {
     const {
@@ -66,13 +68,15 @@ function BuyCart(props) {
       shippingCity,
       shippingAddress,
       shippingTime,
-      clientName
+      clientName,
+      paymentMethod
     } = state;
 
     const productsToSend = products.map((product) => {
       return {
         productId: product._id,
         quantity: product.quantity,
+        cardMessage: product.cardMessage
       };
     });
     const order = {
@@ -84,6 +88,7 @@ function BuyCart(props) {
       shippingAddress: shippingAddress,
       shippingTime: shippingTime,
       clientName: clientName,
+      paymentMethod: paymentMethod
     };
     setState({ ...state, loading: true });
     console.log(order);
@@ -143,10 +148,21 @@ function BuyCart(props) {
       return;
     }
 
-    setState({ ...state, isPaying: true });
+    if(state.paymentMethod === "card") {
+      setState({ ...state, isPaying: true });
+    } else {
+      createOrder();
+    }
   };
 
   const handleChange = (e) => {
+    if(e.target.name === "paymentMethod") {
+      setState({
+        ...state,
+        [e.target.name]: e.target.id,
+      });
+      return;
+    }
     setState({
       ...state,
       [e.target.name]: e.target.value,
@@ -178,16 +194,25 @@ function BuyCart(props) {
             </span>
           )}
           <div className="single__purchase-input-container">
-              <label className="single__purchase-label" htmlFor="shippingTime">
-                Horario en que puede recibir*
-              </label>
-              <select className="single__purchase__input" onChange={handleChange} name="shippingTime" id="shippingTime" defaultValue="default">
-                <option disabled hidden value="default">Selecciona un horario</option>
-                <option value="morning">Mañana, de 7 a 12 de la mañana</option>
-                <option value="afternoon">Tarde, de 1 a 5 de la tarde</option>
-                <option value="night">Noche, de 6 a 9 de la noche</option>
-              </select>
-            </div>
+            <label className="single__purchase-label" htmlFor="shippingTime">
+              Horario en que puede recibir*
+            </label>
+            <select
+              style={{ width: "100%" }}
+              className="single__purchase__input type-inputfield"
+              onChange={handleChange}
+              name="shippingTime"
+              id="shippingTime"
+              defaultValue="default"
+            >
+              <option disabled hidden value="default">
+                Selecciona un horario
+              </option>
+              <option value="morning">Mañana, de 7 a 12 de la mañana</option>
+              <option value="afternoon">Tarde, de 1 a 5 de la tarde</option>
+              <option value="night">Noche, de 6 a 9 de la noche</option>
+            </select>
+          </div>
           <div className="single__purchase__input-container">
             <label className="single__purchase-label" htmlFor="email">
               Nombre de la persona que recibe*
@@ -277,7 +302,7 @@ function BuyCart(props) {
               />
               <label htmlFor="card">Pago en línea con Tarjeta</label>
             </div>
-            <div className="cart__purchase-input--radio-container">
+            {/* <div className="cart__purchase-input--radio-container">
               <input
                 onChange={handleChange}
                 className="cart__purchase-input--radio"
@@ -286,7 +311,7 @@ function BuyCart(props) {
                 id="PSE"
               />
               <label htmlFor="PSE">Pago PSE</label>
-            </div>
+            </div> */}
           </div>
           <button className="cart__purchase__submit" type="submit">
             Continuar

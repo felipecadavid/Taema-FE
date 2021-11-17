@@ -101,6 +101,11 @@
   color: white;
 }
 
+.productpage__info-container__form__input-container.hascard{
+  flex-direction: row;
+  align-items: center;
+}
+
 @media (min-width: 960px) {
   .adminproductpage-container {
     display: flex;

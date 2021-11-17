@@ -65,13 +65,56 @@
   height: 40px;
 }
 
+.productpage__input-container{
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+
+}
+
+.productpage__input-container > label{
+  font-size: 1.2rem
+}
+
+.productpage__card-container{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 10px 0;
+  width: 400px;
+  height: 600px;
+  background-image: url("../../assets/cardbg/cardbg.jpeg");
+  background-position: center;
+  background-size: cover;
+}
+
+.productpage__card-margin{
+  width: 80%;
+  /* word-break: break-all; */
+}
+
+.productpage__card-background{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: var(--color-a);
+}
+
 @media (min-width: 960px) {
   .productpage-container {
     display: flex;
+    align-items: flex-end;
   }
   .productpage__image-container {
     width: 60%;
-    height: 516.13px;
+    /* height: 516.13px; */
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
