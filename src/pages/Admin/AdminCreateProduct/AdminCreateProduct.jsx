@@ -20,6 +20,7 @@ function AdminCreateProduct() {
       stock: "",
       discount: "",
       totalPrice: "",
+      hasCard: false,
     },
     loading: true,
     previewImage: "",
@@ -34,6 +35,7 @@ function AdminCreateProduct() {
   }, []);
 
   const handleChange = (e) => {
+    console.log(e.target.checked);
     if (e.target.id === "discount") {
       const { price } = state.formData;
       const discount = e.target.value;
@@ -46,6 +48,11 @@ function AdminCreateProduct() {
           totalPrice,
         },
       });
+      return;
+    }
+    if (e.target.id === "hasCard") {
+      const { id, checked } = e.target;
+      setState({ ...state, formData: { ...state.formData, [id]: checked } });
       return;
     }
     const { id, value } = e.target;
@@ -66,8 +73,11 @@ function AdminCreateProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setState({ ...state, loading: true });
-    try{
-      const {data: image} = await axios.post("/api/products/image", state.formData.image);
+    try {
+      const { data: image } = await axios.post(
+        "/api/products/image",
+        state.formData.image
+      );
       const formData = { ...state.formData, image: image };
       await axios.post("/api/products", formData);
       setState({ ...state, loading: false });
@@ -77,7 +87,7 @@ function AdminCreateProduct() {
         icon: "success",
       }).then(() => {
         history.push("/admin");
-      })
+      });
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -111,7 +121,9 @@ function AdminCreateProduct() {
             <h1>Nuevo producto</h1>
 
             <div className="createproduct__form__input-container">
-              <label className="createproduct__form__label" htmlFor="category">Categoria</label>
+              <label className="createproduct__form__label" htmlFor="category">
+                Categoria
+              </label>
               <select
                 onChange={handleChange}
                 defaultValue="default"
@@ -130,7 +142,9 @@ function AdminCreateProduct() {
               </select>
             </div>
             <div className="createproduct__form__input-container">
-              <label className="createproduct__form__label" htmlFor="name">Nombre del producto</label>
+              <label className="createproduct__form__label" htmlFor="name">
+                Nombre del producto
+              </label>
               <input
                 onChange={handleChange}
                 type="text"
@@ -139,9 +153,14 @@ function AdminCreateProduct() {
               />
             </div>
             <div className="createproduct__form__input-container">
-              <label className="createproduct__form__label" htmlFor="image">Imagen</label>
-              <label className="createproduct__form__input__file-button type-button" htmlFor="image">
-                  Subir imágen
+              <label className="createproduct__form__label" htmlFor="image">
+                Imagen
+              </label>
+              <label
+                className="createproduct__form__input__file-button type-button"
+                htmlFor="image"
+              >
+                Subir imágen
               </label>
               <input
                 onChange={handleUpload}
@@ -152,7 +171,9 @@ function AdminCreateProduct() {
               />
             </div>
             <div className="createproduct__form__input-container">
-              <label className="createproduct__form__label" htmlFor="price">Precio</label>
+              <label className="createproduct__form__label" htmlFor="price">
+                Precio
+              </label>
               <input
                 onChange={handleChange}
                 type="number"
@@ -161,7 +182,9 @@ function AdminCreateProduct() {
               />
             </div>
             <div className="createproduct__form__input-container">
-              <label className="createproduct__form__label" htmlFor="discount">Descuento</label>
+              <label className="createproduct__form__label" htmlFor="discount">
+                Descuento
+              </label>
               <input
                 onChange={handleChange}
                 type="number"
@@ -171,7 +194,9 @@ function AdminCreateProduct() {
               />
             </div>
             <div className="createproduct__form__input-container">
-              <label className="createproduct__form__label" htmlFor="stock">Unidades disponibles</label>
+              <label className="createproduct__form__label" htmlFor="stock">
+                Unidades disponibles
+              </label>
               <input
                 onChange={handleChange}
                 type="number"
@@ -180,7 +205,12 @@ function AdminCreateProduct() {
               />
             </div>
             <div className="createproduct__form__input-container">
-              <label className="createproduct__form__label" htmlFor="description">Descripción</label>
+              <label
+                className="createproduct__form__label"
+                htmlFor="description"
+              >
+                Descripción
+              </label>
               <textarea
                 onChange={handleChange}
                 className="createproduct__form__input--textarea"
@@ -188,6 +218,17 @@ function AdminCreateProduct() {
                 cols="30"
                 rows="10"
               ></textarea>
+            </div>
+            <div className="createproduct__form__input-container hascard">
+              <input
+                onChange={handleChange}
+                className="createproduct__form__input type-checkbox"
+                type="checkbox"
+                id="hasCard"
+              />
+              <label className="createproduct__form__label" htmlFor="hasCard">
+                Incluye tarjeta
+              </label>
             </div>
             <input className="type-button" type="submit" value="Crear" />
           </form>
