@@ -24,10 +24,13 @@
   cursor: pointer;
 }
 
-.orderpage__data > *{
-  font-size: 1.4rem;
+.orderpage__data{
+  font-size: 20px;
 }
 
+.orderpage__data > h2{
+  font-size: 1.8rem
+}
 .orderpage__status-controls__button:hover {
   background-color: var(--color-d);
 }
@@ -60,6 +63,12 @@
 .orderpage__status-controls__button.disabled {
   background-color: rgb(179, 179, 179);
   cursor: initial;
+}
+
+.orderpage__card-message{
+  background-color: rgb(197, 197, 197);
+  border-radius: 10px;
+  padding: 20px;
 }
 
 @media (min-width: 960px) {
