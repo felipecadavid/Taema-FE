@@ -23,6 +23,7 @@ function AdminProductPage(props) {
       stock: "",
       discount: "",
       totalPrice: "",
+      hasCard: false,
     },
     loading: true,
     previewImage: "",
@@ -84,6 +85,11 @@ function AdminProductPage(props) {
           totalPrice,
         },
       });
+      return;
+    }
+    if (e.target.id === "hasCard") {
+      const { id, checked } = e.target;
+      setState({ ...state, formData: { ...state.formData, [id]: checked } });
       return;
     }
     const { id, value } = e.target;
@@ -165,7 +171,7 @@ function AdminProductPage(props) {
   };
 
   const { product, loading } = state;
-  const { image, name, price, description, discount, totalPrice, stock } =
+  const { image, name, price, description, discount, totalPrice, stock, hasCard } =
     product || {};
   const mockImage =
     "https://store-images.s-microsoft.com/image/apps.38282.13733306562729316.049f2fd1-b066-4cb5-b5ef-317d282a0b02.ca5b4cd1-6cda-4b13-80af-d7d8e5ba2256?w=162&h=162&q=90&mode=crop";
@@ -282,6 +288,18 @@ function AdminProductPage(props) {
                   type="text"
                 />
               </div>
+              <div className="productpage__info-container__form__input-container hascard">
+              <input
+                onChange={handleChange}
+                className="productpage__info-container__form__input type-checkbox"
+                type="checkbox"
+                id="hasCard"
+                defaultChecked={hasCard}
+              />
+              <label className="productpage__info-container__form__label" htmlFor="hasCard">
+                Incluye tarjeta
+              </label>
+            </div>
               <div className="productpage__info-container__form__buttons-container">
                 <input
                   onClick={handleSubmit}
