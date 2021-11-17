@@ -306,7 +306,7 @@ function BuySingleProduct(props) {
                 />
                 <label htmlFor="card">Pago en línea con Tarjeta</label>
               </div>
-              <div className="single__purchase-input--radio-container">
+              {/* <div className="single__purchase-input--radio-container">
                 <input
                   onChange={handleChange}
                   className="single__purchase-input--radio"
@@ -315,7 +315,7 @@ function BuySingleProduct(props) {
                   id="PSE"
                 />
                 <label htmlFor="PSE">Pago PSE</label>
-              </div>
+              </div> */}
             </div>
             <h2>Total a pagar: ${totalToPay}</h2>
             <button className="single__purchase__submit" type="submit">

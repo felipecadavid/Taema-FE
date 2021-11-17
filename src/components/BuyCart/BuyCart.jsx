@@ -58,6 +58,7 @@ function BuyCart(props) {
       });
     }
   };
+  console.log(state)
 
   const createOrder = () => {
     const {
@@ -155,6 +156,13 @@ function BuyCart(props) {
   };
 
   const handleChange = (e) => {
+    if(e.target.name === "paymentMethod") {
+      setState({
+        ...state,
+        [e.target.name]: e.target.id,
+      });
+      return;
+    }
     setState({
       ...state,
       [e.target.name]: e.target.value,
@@ -294,7 +302,7 @@ function BuyCart(props) {
               />
               <label htmlFor="card">Pago en línea con Tarjeta</label>
             </div>
-            <div className="cart__purchase-input--radio-container">
+            {/* <div className="cart__purchase-input--radio-container">
               <input
                 onChange={handleChange}
                 className="cart__purchase-input--radio"
@@ -303,7 +311,7 @@ function BuyCart(props) {
                 id="PSE"
               />
               <label htmlFor="PSE">Pago PSE</label>
-            </div>
+            </div> */}
           </div>
           <button className="cart__purchase__submit" type="submit">
             Continuar

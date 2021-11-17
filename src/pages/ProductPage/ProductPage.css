@@ -109,6 +109,7 @@
 @media (min-width: 960px) {
   .productpage-container {
     display: flex;
+    align-items: flex-end;
   }
   .productpage__image-container {
     width: 60%;
