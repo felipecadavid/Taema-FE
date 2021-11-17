@@ -10,7 +10,7 @@ import ProductsCarousel from "../ProductsCarousel/ProductsCarousel";
 import "./BuySingleProduct.css";
 
 function BuySingleProduct(props) {
-  const { product, quantity } = props;
+  const { product, quantity, cardMessage } = props;
   const { totalPrice } = product;
   const totalToPay = totalPrice * quantity;
 
@@ -136,7 +136,7 @@ function BuySingleProduct(props) {
     const productId = product._id;
 
     const order = {
-      orderItems: [{ productId, quantity }],
+      orderItems: [{ productId, quantity, cardMessage }],
       orderDate: orderDate.value,
       clientEmail: clientEmail,
       clientPhone: clientPhone,
@@ -144,8 +144,10 @@ function BuySingleProduct(props) {
       shippingAddress: shippingAddress,
       paymentMethod: paymentMethod,
       shippingTime: shippingTime,
-      clientName: clientName
+      clientName: clientName,
     };
+
+    console.log("ORDEN: ", order)
 
     setState({ ...state, loading: true });
     console.log(order);

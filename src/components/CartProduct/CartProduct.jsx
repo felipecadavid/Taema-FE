@@ -10,7 +10,7 @@ import "./CartProduct.css";
 
 function CartProduct({ product, productInCartIndex }) {
   const dispatch = useDispatch();
-  const { name, totalPrice, image, quantity } = product;
+  const { name, totalPrice, image, quantity, cardMessage, hasCard } = product;
   console.log(product);
   const handleClick = (e) => {
     Swal.fire({
@@ -33,7 +33,7 @@ function CartProduct({ product, productInCartIndex }) {
       }
     });
   };
-
+  console.log(product);
   return (
     <div className="CartProduct-container">
       <div className="CartProduct__image-container">
@@ -44,6 +44,7 @@ function CartProduct({ product, productInCartIndex }) {
         <h2>Cantidad: {quantity}</h2>
         <h2>Precio unitario: {totalPrice}</h2>
         <h2>Total del producto: {totalPrice * quantity}</h2>
+        {hasCard && cardMessage && <h2>Mensaje: {cardMessage}</h2>}
       </div>
       <div className="CartProduct__buttons">
         <button onClick={handleClick} className="CartProduct__delete">

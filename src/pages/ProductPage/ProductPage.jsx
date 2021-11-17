@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios";
-import ReactImageMagnify from "react-image-magnify";
+import Loader from "../../components/Loader/Loader";
 import {
   Image,
   Video,
@@ -23,6 +23,8 @@ function ProductPage(props) {
     product: props.location.product,
     loading: props.location.product ? false : true,
     quantity: 1,
+    isCardShown: false,
+    cardMessage: "",
   });
 
   useEffect(() => {
@@ -57,6 +59,17 @@ function ProductPage(props) {
     });
   };
 
+  const handleCardChange = (e) => {
+    if(e.target.value.length < 148) {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  } else {
+    e.target.value = e.target.value.slice(0, 147);
+  }
+  };
+
   const handleClick = (e) => {
     const button = e.target.innerText;
     const currentQuantity = parseInt(state.quantity);
@@ -69,6 +82,7 @@ function ProductPage(props) {
       const order = {
         product: state.product._id,
         quantity: state.quantity,
+        cardMessage: state.cardMessage
       };
 
       if (cart.find((item) => item.product === state.product._id)) {
@@ -93,41 +107,46 @@ function ProductPage(props) {
         quantity: state.quantity,
       };
       history.push(
-        `/comprar?product=${order.product}&quantity=${order.quantity}`
+        `/comprar?product=${order.product}&quantity=${order.quantity}&cardMessage=${state.cardMessage}`
       );
     }
   };
 
-  const { product, loading } = state;
-  const { image, name, price, description, discount, totalPrice, stock } =
-    product || {};
+  const handleCardShown = (e) => {
+    setState({ ...state, isCardShown: !state.isCardShown });
+  };
+
+  const { product, loading, isCardShown } = state;
+  const {
+    image,
+    name,
+    price,
+    description,
+    discount,
+    totalPrice,
+    stock,
+    hasCard,
+  } = product || {};
   return (
     <>
       {loading ? (
-        "Loading..."
+        <Loader />
       ) : (
         <div className="productpage-container">
           <div className="productpage__image-container">
-            {/* <ReactImageMagnify
-              {...{
-                smallImage: {
-                  alt: "Wristwatch by Ted Baker London",
-                  isFluidWidth: true,
-                  src: image,
-                },
-                largeImage: {
-                  src: image,
-                  width: 1200,
-                  height: 1800,
-                },
-                // fadeDurationInMs: 0,
-                hoverDelayInMs: 0,
-                // hoverOffDelayInMs: 0
-              }}
-            /> */}
-            <CloudinaryContext cloudName="taema-detalles">
+            {!isCardShown ? (
+              <CloudinaryContext cloudName="taema-detalles">
                 <Image publicId={image} width="50" />
-            </CloudinaryContext>
+              </CloudinaryContext>
+            ) : (
+              <div className="productpage__card-container">
+                <div className="productpage__card-background">
+                  <div className="productpage__card-margin">
+                    {state.cardMessage}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
           <div className="productpage__info-container">
             <h1 className="productpage__name">{name}</h1>
@@ -138,6 +157,22 @@ function ProductPage(props) {
             <h2 className="productpage__price">${totalPrice}</h2>
             <p className="productpage__description">{description}</p>
             <p className="productpage__stock">Unidades disponibles: {stock}</p>
+            {hasCard && (
+              <div className="productpage__input-container">
+                <label htmlFor="cardMessage">Mensaje</label>
+                <textarea
+                  onChange={handleCardChange}
+                  onFocus={handleCardShown}
+                  onBlur={handleCardShown}
+                  placeholder="Escribe un mensaje para esa persona"
+                  className="type-input"
+                  name="cardMessage"
+                  id="cardMessage"
+                  cols="30"
+                  rows="10"
+                ></textarea>
+              </div>
+            )}
             <div className="productpage__quantities-container">
               <button
                 onClick={handleClick}

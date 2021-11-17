@@ -35,6 +35,7 @@ function BuyCart(props) {
     isPaying: false,
     shippingTime: null,
     clientName: null,
+    paymentMethod: null
   });
   const currentDate = new Date();
   const handleDateChange = (value, e) => {
@@ -67,12 +68,14 @@ function BuyCart(props) {
       shippingAddress,
       shippingTime,
       clientName,
+      paymentMethod
     } = state;
 
     const productsToSend = products.map((product) => {
       return {
         productId: product._id,
         quantity: product.quantity,
+        cardMessage: product.cardMessage
       };
     });
     const order = {
@@ -84,6 +87,7 @@ function BuyCart(props) {
       shippingAddress: shippingAddress,
       shippingTime: shippingTime,
       clientName: clientName,
+      paymentMethod: paymentMethod
     };
     setState({ ...state, loading: true });
     console.log(order);
@@ -143,7 +147,11 @@ function BuyCart(props) {
       return;
     }
 
-    setState({ ...state, isPaying: true });
+    if(state.paymentMethod === "card") {
+      setState({ ...state, isPaying: true });
+    } else {
+      createOrder();
+    }
   };
 
   const handleChange = (e) => {

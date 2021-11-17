@@ -98,8 +98,8 @@ function OrderPage(props) {
   const paymentMethods = {
     cash: "Efectivo",
     card: "Tarjeta",
-    PSE: "Pago PSE"
-  }
+    PSE: "Pago PSE",
+  };
   return (
     <>
       {loading ? (
@@ -115,7 +115,7 @@ function OrderPage(props) {
               <ProductsCarousel products={products} details />
             </div>
             <div className="orderpage__data">
-              <h3>Datos del cliente: </h3>
+              <h2>Datos del cliente: </h2>
               <p>
                 <strong>Nombre del que recibe:</strong> {order.clientName}
               </p>
@@ -132,11 +132,29 @@ function OrderPage(props) {
                 <strong>Ciudad:</strong> {order.shippingCity}
               </p>
               <p>
-                <strong>Método de pago:</strong> {paymentMethods[order.paymentMethod]}
+                <strong>Método de pago:</strong>{" "}
+                {paymentMethods[order.paymentMethod]}
               </p>
               <p>
-                <strong>Fecha de entrega:</strong> {format(new Date(order.orderDate), "dd/MM/yyyy")}
+                <strong>Fecha de entrega:</strong>{" "}
+                {format(new Date(order.orderDate), "dd/MM/yyyy")}
               </p>
+              {orderItems.map((item, index) => {
+
+                if (item.cardMessage) {
+                  return (
+                    <div key={item._id} className="orderpage__card-message">
+                      <h2>Mensaje de tarjeta:</h2>
+                      <p>
+                        <strong>Producto:</strong> {item.productId.name}
+                      </p>
+                      <p>
+                        <strong>Mensaje:</strong> {item.cardMessage}
+                      </p>
+                    </div>
+                  );
+                }
+              })}
               <p>
                 <strong>Estado de la orden:</strong>{" "}
                 {orderStatus[order.orderStatus]}
