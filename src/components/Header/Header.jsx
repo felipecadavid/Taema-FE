@@ -56,7 +56,7 @@ function Header() {
               <Link to="/">Preguntas Frecuentes</Link>
             </li>
           </ul>
-          <input onKeyDown={handleSearch} className="header__navigate__input" type="search" placeholder="Buscar" />
+          <input onKeyDown={handleSearch} className="type-inputfield" type="search" placeholder="Buscar" />
         </div>
         <div className="header__mobile-buttons-container">
           <Link
